@@ -1,12 +1,12 @@
 CC = cc
 
-CFLAGS = -Wall -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread
 
-SRCS = utils/parser.c utils/parser_helper.c
+SRCS = utils/parser.c utils/parser_helper.c initialization/init.c
 
 OBJS = $(SRCS:.c=.o)
 
-NAME = main
+NAME = codexion
 
 all:$(NAME)
 

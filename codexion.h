@@ -11,17 +11,17 @@
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
-# define CODEXION_H
+#define CODEXION_H
 
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // defining structs
 
 // prototypes
-typedef struct s_dongle     t_dongle;
-
+typedef struct s_dongle t_dongle;
 
 // struct
 typedef struct s_data
@@ -30,10 +30,10 @@ typedef struct s_data
     long time_to_burnout;
     long time_to_compile;
     long time_to_debug;
-    long time_to_refactor ;
+    long time_to_refactor;
     long number_of_compiles_required;
     long dongle_cooldown;
-    int scheduler;
+    char *scheduler;
 } t_data;
 
 typedef struct s_simulation
@@ -42,7 +42,7 @@ typedef struct s_simulation
     int stop_simulation;
     pthread_mutex_t print_key;
     pthread_mutex_t stop_simulation_key;
-}   t_simulation;
+} t_simulation;
 
 typedef struct s_coder
 {
@@ -53,8 +53,7 @@ typedef struct s_coder
     t_dongle *left_dongle;
     t_dongle *right_dongle;
     t_simulation *simulation;
-}   t_coder;
-
+} t_coder;
 
 typedef struct s_dongle
 {
@@ -67,11 +66,15 @@ typedef struct s_dongle
 } t_dongle;
 // end defining structs
 
-
 // start defining function prototypes
 
-t_data    *parse_data(char const **argv,int nb_args);
-char *msg_args_error();
+// parsing
+t_data *parse_data(char const **argv, int nb_args);
+int ft_isdigit(int c);
+int is_valid_positive_number(char const *str);
+
+// initialization
+int init(t_data *data, t_simulation *simulation, t_dongle **dongles, t_coder **coders);
 
 // end defining function prototypes
 

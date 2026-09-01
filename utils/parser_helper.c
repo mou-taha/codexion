@@ -1,6 +1,21 @@
-char *msg_args_error()
+
+int ft_isdigit(int c)
 {
-    return ("\nMissing or extra arguments. program require this args to run:\n./main <number_of_coders> "
-		"<time_to_burnout> <time_to_compile> <time_to_debug> <time_to_refactor>"
-		" <number_of_compiles_required> <dongle_cooldown> <scheduler>\n\n");
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
+}
+
+int is_valid_positive_number(char const *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
