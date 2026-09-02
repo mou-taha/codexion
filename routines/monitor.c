@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:37:16 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 15:04:02 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/02 18:58:02 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int check_burnout(t_coder *coder);
 void kill_coder(t_coder *coder);
-
 
 void *monitor_routine(void *arg)
 {
@@ -27,7 +26,7 @@ void *monitor_routine(void *arg)
         i = 0;
         while (i < sim->data->nb_coders)
         {
-            if (check_burnout(&sim->coders[i]))
+            if (check_burnout(&sim->coders[i]) && !is_coder_finished(&sim->coders[i]))
             {
                 kill_coder(&sim->coders[i]);
                 return (NULL);
@@ -47,6 +46,15 @@ int check_burnout(t_coder *coder)
     elapsed = get_current_time() - coder->last_compile_time;
     pthread_mutex_unlock(&coder->key);
     return (elapsed >= coder->simulation->data->time_to_burnout);
+}
+
+int is_coder_finished(t_coder *coder)
+{
+    int coder_nb_compiles;
+    pthread_mutex_lock(&(coder->key));
+    coder_nb_compiles = coder->nb_compiles;
+    pthread_mutex_unlock(&(coder->key));
+    return (coder_nb_compiles >= coder->simulation->data->number_of_compiles_required);
 }
 
 void kill_coder(t_coder *coder)

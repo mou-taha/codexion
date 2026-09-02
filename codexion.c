@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:58:10 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 14:34:06 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/02 18:17:04 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int main(int argc, char const *argv[])
         return (1);
     if (init(data, &simulation, &dongles, &coders) == 1)
     {
-        //TODO: call start simulation
         start_simulation(data, &simulation, coders);
         destroy(data, &simulation, dongles, coders);
     }

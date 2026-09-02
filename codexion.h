@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 12:47:54 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 14:31:42 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/02 18:42:50 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data
     long time_to_compile;
     long time_to_debug;
     long time_to_refactor;
-    long number_of_compiles_required;
+    int number_of_compiles_required;
     long dongle_cooldown;
     char *scheduler;
 } t_data;
@@ -86,18 +86,18 @@ void destroy(t_data *data, t_simulation *simulation, t_dongle *dongles, t_coder 
 // routines
 void *coder_routine(void *arg);
 
-//simulation
+// simulation
 int start_simulation(t_data *data, t_simulation *simulation, t_coder *coders);
 long long get_current_time(void);
-void ft_usleep(int milliseconds_to_sleep, t_simulation *simulation);
+void ft_usleep(int milliseconds_to_sleep);
 int check_stop(t_simulation *simulation);
 
-//logs
+// logs
 void print_status(char *status, t_coder *coder);
 
 // monitor
 void *monitor_routine(void *arg);
-
+int is_coder_finished(t_coder *coder);
 
 // end defining function prototypes
 
