@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:58:12 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 13:06:11 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/02 15:19:14 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,19 @@ int init_coders(t_coder **coders, t_dongle **dongles, t_simulation *simulation, 
 
 int init(t_data *data, t_simulation *simulation, t_dongle **dongles, t_coder **coders)
 {
-    if (init_dongles(dongles, data->nb_coders))
+    if (!init_dongles(dongles, data->nb_coders))
     {
-        if (init_coders(coders, dongles, simulation, data->nb_coders))
-        {
-            if (init_simulation(data, simulation, *coders))
-            {
-                return (1);
-            }
-        }
+        return 0;
     }
-    return (0);
+    if (!init_coders(coders, dongles, simulation, data->nb_coders))
+    {
+        return 0;
+    }
+    if (!init_simulation(data, simulation, *coders))
+    {
+        return 0;
+    }
+    return (1);
 }
 
 int init_simulation(t_data *data, t_simulation *simulation, t_coder *coders)
@@ -61,6 +63,8 @@ int init_dongles(t_dongle **dongles, int nb_dongles)
         {
             (*dongles)[i].id = i + 1;
             (*dongles)[i].nb_coder = 0;
+            (*dongles)[i].next_availability = 0;
+            (*dongles)[i].heap = NULL;
             pthread_mutex_init(&((*dongles)[i].key), NULL);
             pthread_cond_init(&(*dongles)[i].signal, NULL);
             i++;

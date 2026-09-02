@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:08:23 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 14:37:59 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/02 15:18:20 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,28 @@ int start_simulation(t_data *data, t_simulation *simulation, t_coder *coders)
     pthread_t   monitor;
     int i;
     
-    i = 0;
     simulation->start_time = get_current_time();
-    pthread_create(&monitor, NULL, &monitor_routine, simulation);
-    while (i < data->nb_coders)
-    {
-        pthread_create(&coders[i].thread_id, NULL, &coder_routine, &coders[i]);
-        i++;
-    }
+
     i = 0;
     while (i < data->nb_coders)
     {
-        pthread_join(coders[i].thread_id, NULL);
+        pthread_mutex_lock(&coders[i].key);
+        coders[i].last_compile_time = simulation->start_time;
+        pthread_mutex_unlock(&coders[i].key);
         i++;
     }
-    pthread_join(monitor, NULL);
+
+    if (pthread_create(&monitor, NULL, &monitor_routine, simulation) != 0)
+        return (0);
+
+    i = 0;
+    while (i < data->nb_coders)
+    {
+        if (pthread_create(&coders[i].thread_id, NULL,
+                &coder_routine, &coders[i]) != 0)
+            return (0);
+        i++;
+    }
     return (1) ;
 }
 
