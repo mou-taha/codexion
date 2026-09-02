@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -pthread
 
-SRCS = parser/parser.c parser/parser_helper.c initialization/init.c
+SRCS = parser/parser.c parser/parser_helper.c initialization/init.c  initialization/destroy.c logs/logs.c routines/coder_routine.c routines/helper.c routines/monitor.c simulation/simulation.c
 
 OBJS = $(SRCS:.c=.o)
 

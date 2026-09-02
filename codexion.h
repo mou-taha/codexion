@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 12:47:54 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 07:05:10 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/02 14:31:42 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/time.h>
+#include <unistd.h>
 
 // defining structs
 
 // prototypes
 typedef struct s_dongle t_dongle;
+typedef struct s_coder t_coder;
 
 // struct
 typedef struct s_data
@@ -40,15 +43,17 @@ typedef struct s_simulation
 {
     t_data *data;
     int stop_simulation;
+    long long start_time;
     pthread_mutex_t print_key;
     pthread_mutex_t stop_simulation_key;
+    t_coder *coders;
 } t_simulation;
 
 typedef struct s_coder
 {
     int id;
     int nb_compiles;
-    long last_compile_time;
+    long long last_compile_time;
     pthread_mutex_t key;
     t_dongle *left_dongle;
     t_dongle *right_dongle;
@@ -76,10 +81,23 @@ int is_valid_positive_number(char const *str);
 
 // initialization
 int init(t_data *data, t_simulation *simulation, t_dongle **dongles, t_coder **coders);
-void exit_free(t_data *data, t_simulation *simulation, t_dongle *dongles, t_coder *coders);
+void destroy(t_data *data, t_simulation *simulation, t_dongle *dongles, t_coder *coders);
 
 // routines
 void *coder_routine(void *arg);
+
+//simulation
+int start_simulation(t_data *data, t_simulation *simulation, t_coder *coders);
+long long get_current_time(void);
+void ft_usleep(int milliseconds_to_sleep, t_simulation *simulation);
+int check_stop(t_simulation *simulation);
+
+//logs
+void print_status(char *status, t_coder *coder);
+
+// monitor
+void *monitor_routine(void *arg);
+
 
 // end defining function prototypes
 
