@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/02 06:58:12 by tmousnia          #+#    #+#             */
+/*   Updated: 2026/09/02 06:58:13 by tmousnia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../codexion.h"
 
 int init_simulation(t_data *data, t_simulation *simulation);
@@ -23,7 +35,6 @@ int init_simulation(t_data *data, t_simulation *simulation)
 {
     if (data)
     {
-        simulation = malloc(sizeof(t_simulation));
         if (simulation)
         {
             simulation->stop_simulation = 0;
@@ -81,4 +92,23 @@ int init_coders(t_coder **coders, t_dongle **dongles, t_simulation *simulation, 
     }
     printf("\n Error while initializing coders\n");
     return (0);
+}
+
+void exit_free(t_data *data, t_simulation *simulation, t_dongle *dongles, t_coder *coders)
+{
+    int i;
+
+    i = 0;
+    while (i < data->nb_coders)
+    {
+        pthread_mutex_destroy(&(coders[i].key));
+        pthread_mutex_destroy(&(dongles[i].key));
+        pthread_cond_destroy(&(dongles[i].signal));
+        i++;
+    }
+    pthread_mutex_destroy(&(simulation->stop_simulation_key));
+    pthread_mutex_destroy(&(simulation->print_key));
+    free(dongles);
+    free(coders);
+    free(data);
 }

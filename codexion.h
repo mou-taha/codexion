@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 12:47:54 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/01 14:31:06 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/02 07:05:10 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_coder
     t_dongle *left_dongle;
     t_dongle *right_dongle;
     t_simulation *simulation;
+    pthread_t thread_id;
 } t_coder;
 
 typedef struct s_dongle
@@ -75,6 +76,10 @@ int is_valid_positive_number(char const *str);
 
 // initialization
 int init(t_data *data, t_simulation *simulation, t_dongle **dongles, t_coder **coders);
+void exit_free(t_data *data, t_simulation *simulation, t_dongle *dongles, t_coder *coders);
+
+// routines
+void *coder_routine(void *arg);
 
 // end defining function prototypes
 
