@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 12:47:54 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 18:42:50 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:05:59 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,22 @@
 typedef struct s_dongle t_dongle;
 typedef struct s_coder t_coder;
 
+
 // struct
+typedef struct s_heap_node
+{
+    int request_id;
+    t_coder *coder;
+    long long priority;
+} t_heap_node;
+
+typedef struct s_heap
+{
+    t_heap_node *nodes;
+    int size;
+    int capacity;
+} t_heap;
+
 typedef struct s_data
 {
     int nb_coders;
@@ -66,10 +81,11 @@ typedef struct s_dongle
     int id;
     long next_availability;
     int nb_coder;
-    t_coder **heap;
+    t_heap queue;
     pthread_mutex_t key;
     pthread_cond_t signal;
 } t_dongle;
+
 // end defining structs
 
 // start defining function prototypes

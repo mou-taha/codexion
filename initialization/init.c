@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:58:12 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 15:19:14 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:00:31 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int init_dongles(t_dongle **dongles, int nb_dongles)
             (*dongles)[i].id = i + 1;
             (*dongles)[i].nb_coder = 0;
             (*dongles)[i].next_availability = 0;
-            (*dongles)[i].heap = NULL;
+            (*dongles)[i].queue.nodes = malloc(sizeof(t_heap_node) * 2);
             pthread_mutex_init(&((*dongles)[i].key), NULL);
             pthread_cond_init(&(*dongles)[i].signal, NULL);
             i++;

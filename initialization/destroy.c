@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 10:48:12 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 13:16:12 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:03:13 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void destroy(t_data *data, t_simulation *simulation, t_dongle *dongles, t_coder 
     int i;
 
     if (!data)
-        return ;
+        return;
     i = 0;
     while (coders && i < data->nb_coders)
     {
@@ -29,6 +29,7 @@ void destroy(t_data *data, t_simulation *simulation, t_dongle *dongles, t_coder 
     {
         pthread_mutex_destroy(&(dongles[i].key));
         pthread_cond_destroy(&(dongles[i].signal));
+        free(dongles[i].queue.nodes);
         i++;
     }
     if (simulation)
