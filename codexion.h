@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 12:47:54 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/03 07:05:59 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/03 23:30:41 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 typedef struct s_dongle t_dongle;
 typedef struct s_coder t_coder;
 
-
 // struct
 typedef struct s_heap_node
 {
@@ -40,6 +39,7 @@ typedef struct s_heap
     t_heap_node *nodes;
     int size;
     int capacity;
+    char *scheduler;
 } t_heap;
 
 typedef struct s_data
@@ -114,6 +114,13 @@ void print_status(char *status, t_coder *coder);
 // monitor
 void *monitor_routine(void *arg);
 int is_coder_finished(t_coder *coder);
+
+// heap
+t_heap init_heap(int capacity, char *scheduler);
+int insert_to_heap(t_heap *queue, t_heap_node request);
+int is_fifo(char *scheduler);
+int is_edf(char *scheduler);
+void queue_swap(t_heap *queue, int current, int parent);
 
 // end defining function prototypes
 

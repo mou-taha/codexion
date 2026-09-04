@@ -6,19 +6,19 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:58:12 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/03 07:00:31 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/03 21:22:29 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
 int init_simulation(t_data *data, t_simulation *simulation, t_coder *coders);
-int init_dongles(t_dongle **dongles, int nb_dongles);
+int init_dongles(t_dongle **dongles, int nb_dongles, char *scheduler);
 int init_coders(t_coder **coders, t_dongle **dongles, t_simulation *simulation, int nb_coders);
 
 int init(t_data *data, t_simulation *simulation, t_dongle **dongles, t_coder **coders)
 {
-    if (!init_dongles(dongles, data->nb_coders))
+    if (!init_dongles(dongles, data->nb_coders, data->scheduler))
     {
         return 0;
     }
@@ -51,7 +51,7 @@ int init_simulation(t_data *data, t_simulation *simulation, t_coder *coders)
     return (0);
 }
 
-int init_dongles(t_dongle **dongles, int nb_dongles)
+int init_dongles(t_dongle **dongles, int nb_dongles, char *scheduler)
 {
     int i;
 
@@ -64,7 +64,7 @@ int init_dongles(t_dongle **dongles, int nb_dongles)
             (*dongles)[i].id = i + 1;
             (*dongles)[i].nb_coder = 0;
             (*dongles)[i].next_availability = 0;
-            (*dongles)[i].queue.nodes = malloc(sizeof(t_heap_node) * 2);
+            (*dongles)[i].queue = init_heap(2, scheduler);
             pthread_mutex_init(&((*dongles)[i].key), NULL);
             pthread_cond_init(&(*dongles)[i].signal, NULL);
             i++;

@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:02:26 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 19:07:21 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/03 20:44:31 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void grab_dongles(t_coder *coder);
 void drop_dongles(t_coder *coder);
 void compile(t_coder *coder);
 
+// TODO: One later issue remains: coders can block forever inside pthread_mutex_lock() while waiting for dongles after the monitor sets the stop flag. That will need to be replaced with condition-variable scheduling, but first restore the missing pthread_create() loop.
 void *coder_routine(void *arg)
 {
     t_coder *coder;
@@ -51,6 +52,7 @@ void *coder_routine(void *arg)
     coder->simulation->stop_simulation = 1;
     return NULL;
 }
+
 // TODO:check dongle cool down
 void grab_dongles(t_coder *coder)
 {

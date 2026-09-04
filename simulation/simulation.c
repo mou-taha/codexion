@@ -6,11 +6,10 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:08:23 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 17:53:46 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/03 20:44:20 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// TODO: One later issue remains: coders can block forever inside pthread_mutex_lock() while waiting for dongles after the monitor sets the stop flag. That will need to be replaced with condition-variable scheduling, but first restore the missing pthread_create() loop.
 #include "../codexion.h"
 
 void create_dongles_routine(t_data *data, t_coder *coders);
