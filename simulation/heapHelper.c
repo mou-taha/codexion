@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 22:51:27 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/03 23:30:09 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/05 15:27:50 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void queue_swap(t_heap *queue, int current, int parent)
     temp = queue->nodes[parent];
     queue->nodes[parent] = queue->nodes[current];
     queue->nodes[current] = temp;
-    current = parent;
 }

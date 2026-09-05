@@ -6,13 +6,13 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 11:17:27 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 18:09:16 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/05 15:29:54 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-long long get_current_time(void)
+long long get_current_time_ms(void)
 {
     struct timeval time;
 
@@ -24,4 +24,16 @@ long long get_current_time(void)
 void ft_usleep(int milliseconds_to_sleep)
 {
     usleep(milliseconds_to_sleep * 1000);
+}
+
+void create_dongle_request(t_coder *coder, t_dongle *dongle)    
+{
+    t_heap_node request;
+
+    pthread_mutex_lock(&(dongle->key));
+    request.coder = coder;
+    request.request_time = get_current_time_ms();
+    request.request_id = dongle->request_counter++;
+    insert_to_heap(&(dongle->queue), request);
+    pthread_mutex_unlock(&(dongle->key));
 }

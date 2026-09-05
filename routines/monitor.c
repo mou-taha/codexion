@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:37:16 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/02 18:58:02 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/05 12:44:36 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int check_burnout(t_coder *coder)
     long long elapsed;
 
     pthread_mutex_lock(&coder->key);
-    elapsed = get_current_time() - coder->last_compile_time;
+    elapsed = get_current_time_ms() - coder->last_compile_time;
     pthread_mutex_unlock(&coder->key);
     return (elapsed >= coder->simulation->data->time_to_burnout);
 }
@@ -65,7 +65,7 @@ void kill_coder(t_coder *coder)
     pthread_mutex_lock(&(coder->simulation->stop_simulation_key));
     coder->simulation->stop_simulation = 1;
     pthread_mutex_unlock(&(coder->simulation->stop_simulation_key));
-    interval = get_current_time() - coder->simulation->start_time;
+    interval = get_current_time_ms() - coder->simulation->start_time;
     printf("%lld %d burned out\n", interval, coder->id);
     pthread_mutex_unlock(&coder->simulation->print_key);
 }

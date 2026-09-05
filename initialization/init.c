@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:58:12 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/03 21:22:29 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/04 23:11:17 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int init_dongles(t_dongle **dongles, int nb_dongles, char *scheduler)
             (*dongles)[i].id = i + 1;
             (*dongles)[i].nb_coder = 0;
             (*dongles)[i].next_availability = 0;
+            (*dongles)[i].request_counter = 0;
             (*dongles)[i].queue = init_heap(2, scheduler);
             pthread_mutex_init(&((*dongles)[i].key), NULL);
             pthread_cond_init(&(*dongles)[i].signal, NULL);

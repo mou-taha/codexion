@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:08:23 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/03 20:44:20 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/05 12:22:17 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int start_simulation(t_data *data, t_simulation *simulation, t_coder *coders)
     pthread_t monitor;
     int i;
 
-    simulation->start_time = get_current_time();
+    simulation->start_time = get_current_time_ms();
     i = 0;
     while (i < data->nb_coders)
     {
