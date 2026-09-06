@@ -288,3 +288,6 @@ This step is meant to verify your actual understanding of a specific part of the
 You can, for example, be asked to make a small update to a function or script, modify a display, or adjust a data structure to store new information, etc.
 
 The details (scope, target, etc.) will be specified in the evaluation guidelines and may vary from one evaluation to another for the same project.
+
+to fix -fsanitize segfault
+setarch $(uname -m) -R ./codexion 5 800 200 200 200 10 0 fifo

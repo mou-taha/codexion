@@ -6,17 +6,17 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 20:47:04 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/05 15:37:03 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/06 22:31:38 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-int should_swap(char *scheduler, t_heap_node parent, t_heap_node child);
+int		should_swap(char *scheduler, t_heap_node parent, t_heap_node child);
 
-t_heap init_heap(int capacity, char *scheduler)
+t_heap	init_heap(int capacity, char *scheduler)
 {
-	t_heap heap;
+	t_heap	heap;
 
 	heap.capacity = capacity;
 	heap.nodes = malloc(sizeof(t_heap_node) * capacity);
@@ -25,29 +25,35 @@ t_heap init_heap(int capacity, char *scheduler)
 	return (heap);
 }
 
-int insert_to_heap(t_heap *queue, t_heap_node request)
+int	insert_to_heap(t_heap *queue, t_heap_node request)
 {
+	int			current;
+	int			parent;
+	t_heap_node	temp;
+
 	if (queue->capacity == queue->size)
 		return (0);
-
 	queue->nodes[queue->size] = request;
 	queue->size++;
-
-	int current = queue->size - 1;
-	int parent = (current - 1) / 2;
-
-	while (current > 0 && should_swap(queue->scheduler, queue->nodes[parent], queue->nodes[current]))
+	current = queue->size - 1;
+	parent = (current - 1) / 2;
+	while (current > 0 && should_swap(queue->scheduler, queue->nodes[parent],
+			queue->nodes[current]))
 	{
 		queue_swap(queue, current, parent);
+		temp = queue->nodes[parent];
+		queue->nodes[parent] = queue->nodes[current];
+		queue->nodes[current] = temp;
+		current = parent;
 		parent = (current - 1) / 2;
 	}
 	return (1);
 }
 
-int should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
+int	should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
 {
-	long long parent_burnout_time;
-	long long child_burnout_time;
+	long long	parent_burnout_time;
+	long long	child_burnout_time;
 
 	if (is_fifo(scheduler))
 	{
@@ -57,41 +63,40 @@ int should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
 	}
 	else if (is_edf(scheduler))
 	{
-		parent_burnout_time = parent.coder->last_compile_time + parent.coder->simulation->data->time_to_burnout;
-		child_burnout_time = child.coder->last_compile_time + child.coder->simulation->data->time_to_burnout;
-
+		parent_burnout_time = parent.coder->last_compile_time
+			+ parent.coder->simulation->data->time_to_burnout;
+		child_burnout_time = child.coder->last_compile_time
+			+ child.coder->simulation->data->time_to_burnout;
 		if (child_burnout_time < parent_burnout_time)
 			return (1);
-		else if (child_burnout_time == parent_burnout_time && child.request_id < parent.request_id)
+		else if (child_burnout_time == parent_burnout_time
+			&& child.request_id < parent.request_id)
 			return (1);
 		return (0);
 	}
 	return (0);
 }
 
-t_heap_node *pop_coder(t_heap *queue)
+void	pop_coder(t_heap *queue)
 {
-	if (queue->size == 0)
-		return NULL;
-	t_heap_node *ret = malloc(sizeof(t_heap_node));
-	*ret = queue->nodes[0];
-	queue->nodes[0] = queue->nodes[queue->size - 1];
-	queue->size--;
-	int current = 0;
-	while ((2 * current + 1) < queue->size)
+	int	current;
+	int	child;
+
+	if (!queue->size)
+		return ;
+	queue->nodes[0] = queue->nodes[--queue->size];
+	current = 0;
+	while (2 * current + 1 < queue->size)
 	{
-		int left = 2 * current + 1;
-		int right = left + 1;
-		int chosen = left;
-		if (right < queue->size && should_swap(queue->scheduler, queue->nodes[left], queue->nodes[right]))
-			chosen = right;
-		if (should_swap(queue->scheduler, queue->nodes[chosen], queue->nodes[current]))
-		{
-			queue_swap(queue, current, chosen);
-			current = chosen;
-		}
-		else
-			break;
+		child = 2 * current + 1;
+		if (child + 1 < queue->size
+			&& should_swap(queue->scheduler,
+				queue->nodes[child], queue->nodes[child + 1]))
+			child++;
+		if (!should_swap(queue->scheduler,
+				queue->nodes[child], queue->nodes[current]))
+			break ;
+		queue_swap(queue, current, child);
+		current = child;
 	}
-	return ret;
 }

@@ -6,21 +6,21 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:50:26 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/05 12:22:17 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/06 22:02:59 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-void print_status(char *status, t_coder *coder)
+void	print_status(char *status, t_coder *coder)
 {
-    int interval;
+	int	interval;
 
-    pthread_mutex_lock(&(coder->simulation->print_key));
-    if (!check_stop(coder->simulation))
-    {
-        interval = get_current_time_ms() - coder->simulation->start_time;
-        printf("%d %d %s\n", interval, coder->id, status);
-    }
-    pthread_mutex_unlock(&(coder->simulation->print_key));
+	pthread_mutex_lock(&(coder->simulation->print_key));
+	if (!check_stop(coder->simulation))
+	{
+		interval = get_current_time_ms() - coder->simulation->start_time;
+		printf("%d %d %s\n", interval, coder->id, status);
+	}
+	pthread_mutex_unlock(&(coder->simulation->print_key));
 }

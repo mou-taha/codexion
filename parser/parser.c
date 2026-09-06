@@ -1,30 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/06 22:03:54 by tmousnia          #+#    #+#             */
+/*   Updated: 2026/09/06 22:04:01 by tmousnia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../codexion.h"
 
-int validate_args(t_data *data, char const **arg);
-void parse_numbers_data(t_data *data, int *arg);
+int		validate_args(t_data *data, char const **arg);
+void	parse_numbers_data(t_data *data, int *arg);
 
-t_data *parse_data(char const **argv, int nb_args)
+t_data	*parse_data(char const **argv, int nb_args)
 {
+	t_data	*data;
+
 	if (nb_args != 9)
 	{
 		printf("\nInvalid number of arguments\n");
-		return NULL;
+		return (NULL);
 	}
-
-	t_data *data = malloc(sizeof(t_data));
-
+	data = malloc(sizeof(t_data));
 	if (validate_args(data, argv) == 0)
 	{
 		free(data);
-		return NULL;
+		return (NULL);
 	}
-	return data;
+	return (data);
 }
 
-int validate_args(t_data *data, char const **arg)
+int	validate_args(t_data *data, char const **arg)
 {
-	int i;
-	int parsed_arg[8];
+	int	i;
+	int	parsed_arg[8];
 
 	i = 1;
 	while (i < 8)
@@ -48,7 +60,7 @@ int validate_args(t_data *data, char const **arg)
 	return (0);
 }
 
-void parse_numbers_data(t_data *data, int *arg)
+void	parse_numbers_data(t_data *data, int *arg)
 {
 	data->nb_coders = arg[0];
 	data->time_to_burnout = arg[1];

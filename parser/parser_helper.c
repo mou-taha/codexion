@@ -1,14 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_helper.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/06 22:03:18 by tmousnia          #+#    #+#             */
+/*   Updated: 2026/09/06 22:03:34 by tmousnia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= 48 && c <= 57)
 		return (1);
 	return (0);
 }
 
-int is_valid_positive_number(char const *str)
+int	is_valid_positive_number(char const *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
