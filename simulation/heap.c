@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 20:47:04 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 22:31:38 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/06 23:52:16 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	insert_to_heap(t_heap *queue, t_heap_node request)
 {
 	int			current;
 	int			parent;
-	t_heap_node	temp;
 
 	if (queue->capacity == queue->size)
 		return (0);
@@ -41,9 +40,6 @@ int	insert_to_heap(t_heap *queue, t_heap_node request)
 			queue->nodes[current]))
 	{
 		queue_swap(queue, current, parent);
-		temp = queue->nodes[parent];
-		queue->nodes[parent] = queue->nodes[current];
-		queue->nodes[current] = temp;
 		current = parent;
 		parent = (current - 1) / 2;
 	}
@@ -89,12 +85,12 @@ void	pop_coder(t_heap *queue)
 	while (2 * current + 1 < queue->size)
 	{
 		child = 2 * current + 1;
-		if (child + 1 < queue->size
-			&& should_swap(queue->scheduler,
+		if (child + 1 < queue->size && should_swap(queue->scheduler,
 				queue->nodes[child], queue->nodes[child + 1]))
 			child++;
 		if (!should_swap(queue->scheduler,
-				queue->nodes[child], queue->nodes[current]))
+				queue->nodes[child],
+				queue->nodes[current]))
 			break ;
 		queue_swap(queue, current, child);
 		current = child;
