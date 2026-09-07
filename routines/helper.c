@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 11:17:27 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 23:35:10 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/07 22:30:14 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,37 @@ long long	get_current_time_ms(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-/*
- TODO: refactor sleep logic to handle checking if one coder has burned out 
-*/
-// void	ft_usleep(int milliseconds_to_sleep)
-// {
-// 	usleep(milliseconds_to_sleep * 1000);
-// }
-
 void	ft_usleep(int milliseconds_to_sleep, t_simulation *simulation)
 {
 	long long	time_to_wait;
 
 	time_to_wait = get_current_time_ms() + milliseconds_to_sleep;
-	while (get_current_time_ms() <= time_to_wait
-		&& !check_stop(simulation))
+	while (get_current_time_ms() <= time_to_wait && !check_stop(simulation))
 	{
 		usleep(500);
 	}
 }
+
+// void	ft_usleep(int to_sleep, t_simulation *simulation)
+// {
+// 	long	before_loop;
+// 	long	current_num;
+
+// 	if (to_sleep == 0)
+// 		return ;
+// 	before_loop = get_current_time_ms();
+// 	current_num = before_loop;
+// 	while (current_num - before_loop < to_sleep)
+// 	{
+// 		if (check_stop(simulation))
+// 			break ;
+// 		if (to_sleep - (current_num - before_loop) > 100)
+// 			usleep(100 * 1000);
+// 		else
+// 			usleep(to_sleep - (current_num - before_loop));
+// 		current_num = get_current_time_ms();
+// 	}
+// }
 
 void	create_dongle_request(t_coder *coder, t_dongle *dongle)
 {

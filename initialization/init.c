@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 06:58:12 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 21:13:00 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/07 22:28:34 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ int	init_coders(t_coder **coders, t_dongle **dongles, t_simulation *simulation,
 			(*coders)[i].last_compile_time = get_current_time_ms();
 			(*coders)[i].left_dongle = &(*dongles)[i];
 			(*coders)[i].right_dongle = &(*dongles)[(i + 1) % nb_coders];
+			// if (i == 0)
+			// 	(*coders)[i].right_dongle = &(*dongles)[nb_coders - 1];
+			// else
+			// 	(*coders)[i].right_dongle = &(*dongles)[i - 1];
 			pthread_mutex_init(&((*coders)[i].key), NULL);
 			i++;
 		}

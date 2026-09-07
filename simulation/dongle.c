@@ -6,36 +6,12 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/05 09:10:11 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 23:30:21 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/07 22:28:59 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-// TODO: add cond wait
-// void grab_dongle(t_coder *coder, t_dongle *dongle)
-// {
-//     pthread_mutex_lock(&(dongle->key));
-//     while (1)
-//     {
-//         if (dongle->in_use == 0 && dongle->queue.size != 0
-// && dongle->queue.nodes[0].coder->id == coder->id)
-//         {
-//             if (get_current_time_ms() < dongle->next_availability)
-//             {
-//                 pthread_mutex_unlock(&(dongle->key));
-//                 ft_usleep(dongle->next_availability - get_current_time_ms());
-//                 pthread_mutex_lock(&(dongle->key));
-//             }
-
-//             break ;
-//         }
-//         pthread_cond_wait(&(dongle->signal), &(dongle->key));
-//     }
-//     dongle->in_use = 1;
-//     pop_coder(&dongle->queue);
-//     pthread_mutex_unlock(&(dongle->key));
-// }
 
 void	grab_dongle(t_coder *coder, t_dongle *dongle)
 {
