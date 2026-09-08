@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:37:16 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 22:19:27 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/08 12:12:58 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*monitor_routine(void *arg)
 }
 
 /*
-check if a coder is going to burnout base 
+check if a coder is going to burnout based
 on his last compile and time to burnout,
 but the coder mustn't be in compiling and 
 must not finished yet their required compiles
@@ -52,12 +52,14 @@ must not finished yet their required compiles
 int	check_burnout(t_coder *coder)
 {
 	long long	elapsed;
+	int is_compiling;
 
 	pthread_mutex_lock(&coder->key);
 	elapsed = get_current_time_ms() - coder->last_compile_time;
+	is_compiling = coder->is_compiling;
 	pthread_mutex_unlock(&coder->key);
 	return (elapsed >= coder->simulation->data->time_to_burnout
-		&& !is_coder_finished(coder) && !coder->is_compiling);
+		&& !is_coder_finished(coder) && !is_compiling);
 }
 
 int	is_coder_finished(t_coder *coder)
