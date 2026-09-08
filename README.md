@@ -144,4 +144,3 @@ AI assistance was used for documentation support: organizing this README, explai
 - `routines/`: coder lifecycle and monitor logic
 - `simulation/`: dongle ownership, timing, and heap scheduling
 - `logs/`: serialized status output
-- `tester.py`, `tester.sh`: local testing helpers
