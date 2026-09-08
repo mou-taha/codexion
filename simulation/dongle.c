@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/05 09:10:11 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/07 22:28:59 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/08 20:45:41 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	request_and_grab_dongles(t_coder *coder)
 		second_dongle = coder->right_dongle;
 	}
 	create_dongle_request(coder, first_dongle);
-	create_dongle_request(coder, second_dongle);
 	grab_dongle(coder, first_dongle);
+	create_dongle_request(coder, second_dongle);
 	grab_dongle(coder, second_dongle);
 	print_status("has taken a dongle", coder);
 	print_status("has taken a dongle", coder);

@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:02:26 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/08 15:20:18 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/08 20:47:05 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	do_my_routine(t_coder *coder);
 void	*coder_routine(void *arg)
 {
 	t_coder	*coder;
-	
+
 	coder = (t_coder *)arg;
-	if(coder->id % 2 ==0)
-		ft_usleep(50, coder->simulation);
 	if (coder->simulation->data->nb_coders == 1)
 	{
 		print_status("has taken a dongle", coder);
@@ -30,6 +28,7 @@ void	*coder_routine(void *arg)
 		return (NULL);
 	}
 	coder = (t_coder *)arg;
+	coder->last_compile_time = get_current_time_ms();
 	while (1)
 	{
 		if (check_stop(coder->simulation) || is_coder_finished(coder))
@@ -68,9 +67,9 @@ void	do_my_routine(t_coder *coder)
 	request_and_grab_dongles(coder);
 	compile(coder);
 	drop_dongle(coder->right_dongle,
-		coder->simulation->data->dongle_cooldown);
+				coder->simulation->data->dongle_cooldown);
 	drop_dongle(coder->left_dongle,
-		coder->simulation->data->dongle_cooldown);
+				coder->simulation->data->dongle_cooldown);
 	print_status("is debugging", coder);
 	ft_usleep(coder->simulation->data->time_to_debug, coder->simulation);
 	print_status("is refactoring", coder);
