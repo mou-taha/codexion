@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:02:26 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 23:34:41 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/08 12:55:04 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	*coder_routine(void *arg)
 	t_coder	*coder;
 
 	coder = (t_coder *)arg;
-	if (coder->id % 2 == 0)
-		ft_usleep(50, coder->simulation);
 	if (coder->simulation->data->nb_coders == 1)
 	{
 		print_status("has taken a dongle", coder);
