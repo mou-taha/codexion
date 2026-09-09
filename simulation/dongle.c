@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/05 09:10:11 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/08 20:45:41 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/09 12:01:30 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	grab_dongle(t_coder *coder, t_dongle *dongle)
 				pthread_mutex_lock(&dongle->key);
 				continue ;
 			}
+			// printf("\ncoder %d grab dongle %d\n",coder->id,dongle->id);
 			dongle->in_use = 1;
 			pop_coder(&dongle->queue);
 			pthread_mutex_unlock(&dongle->key);
@@ -45,15 +46,15 @@ void	request_and_grab_dongles(t_coder *coder)
 	t_dongle	*first_dongle;
 	t_dongle	*second_dongle;
 
-	if (coder->id % 2 == 0)
-	{
-		first_dongle = coder->right_dongle;
-		second_dongle = coder->left_dongle;
-	}
-	else
+	if (coder->left_dongle->id < coder->right_dongle->id)
 	{
 		first_dongle = coder->left_dongle;
 		second_dongle = coder->right_dongle;
+	}
+	else
+	{
+		first_dongle = coder->right_dongle;
+		second_dongle = coder->left_dongle;
 	}
 	create_dongle_request(coder, first_dongle);
 	grab_dongle(coder, first_dongle);
