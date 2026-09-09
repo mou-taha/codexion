@@ -16,10 +16,10 @@ void	print_status(char *status, t_coder *coder)
 {
 	int	interval;
 
+	interval = get_current_time_ms() - coder->simulation->start_time;
 	pthread_mutex_lock(&(coder->simulation->print_key));
 	if (!check_stop(coder->simulation))
 	{
-		interval = get_current_time_ms() - coder->simulation->start_time;
 		printf("%d %d %s\n", interval, coder->id, status);
 	}
 	pthread_mutex_unlock(&(coder->simulation->print_key));

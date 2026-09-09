@@ -12,7 +12,6 @@
 
 #include "../codexion.h"
 
-void	grab_dongles(t_coder *coder);
 void	compile(t_coder *coder);
 void	do_my_routine(t_coder *coder);
 
@@ -27,8 +26,9 @@ void	*coder_routine(void *arg)
 		ft_usleep(coder->simulation->data->time_to_burnout, coder->simulation);
 		return (NULL);
 	}
-	coder = (t_coder *)arg;
-	coder->last_compile_time = get_current_time_ms();
+	if (coder->id % 2 == 0)
+		ft_usleep(coder->simulation->data->time_to_compile / 2,
+			coder->simulation);
 	while (1)
 	{
 		if (check_stop(coder->simulation) || is_coder_finished(coder))
