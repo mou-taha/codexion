@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:37:16 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/08 12:12:58 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 07:13:03 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ must not finished yet their required compiles
 int	check_burnout(t_coder *coder)
 {
 	long long	elapsed;
-	int is_compiling;
+	int			is_compiling;
 
 	pthread_mutex_lock(&coder->key);
 	elapsed = get_current_time_ms() - coder->last_compile_time;
