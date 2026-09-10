@@ -115,7 +115,6 @@ long long				get_current_time_ms(void);
 void					ft_usleep(int milliseconds_to_sleep,
 							t_simulation *simulation);
 int						check_stop(t_simulation *simulation);
-void					grab_dongle(t_coder *coder, t_dongle *dongle);
 void					drop_dongle(t_dongle *dongle,
 							long long dongle_cooldown);
 void					request_and_grab_dongles(t_coder *coder);

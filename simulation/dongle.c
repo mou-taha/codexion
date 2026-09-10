@@ -41,18 +41,19 @@ void	grab_dongle(t_coder *coder, t_dongle *dongle)
 
 void	request_and_grab_dongles(t_coder *coder)
 {
-	t_dongle	*first_dongle;
-	t_dongle	*second_dongle;
+	t_dongle	*d1;
+	t_dongle	*d2;
+	long long	now;
 
-	if (coder->left_dongle->id < coder->right_dongle->id)
+	if (coder->id % 2 == 0)
 	{
-		first_dongle = coder->left_dongle;
-		second_dongle = coder->right_dongle;
+		d1 = coder->right_dongle;
+		d2 = coder->left_dongle;
 	}
 	else
 	{
-		first_dongle = coder->right_dongle;
-		second_dongle = coder->left_dongle;
+		first_dongle = coder->left_dongle;
+		second_dongle = coder->right_dongle;
 	}
 	create_dongle_request(coder, first_dongle);
 	create_dongle_request(coder, second_dongle);
