@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 20:47:04 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/08 20:51:13 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 07:14:45 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
 		if (child_burnout_time < parent_burnout_time)
 			return (1);
 		else if (child_burnout_time == parent_burnout_time
-				&& child.request_id < parent.request_id)
+			&& child.request_id < parent.request_id)
 			return (1);
 		return (0);
 	}
@@ -93,8 +93,8 @@ void	pop_coder(t_heap *queue)
 				queue->nodes[child], queue->nodes[child + 1]))
 			child++;
 		if (!should_swap(queue->scheduler,
-							queue->nodes[child],
-							queue->nodes[current]))
+				queue->nodes[child],
+				queue->nodes[current]))
 			break ;
 		queue_swap(queue, current, child);
 		current = child;

@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:02:26 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/09 12:01:13 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 07:13:17 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	*coder_routine(void *arg)
 		return (NULL);
 	}
 	coder = (t_coder *)arg;
+	if (coder->id % 2 == 0)
+		usleep(100);
 	coder->last_compile_time = get_current_time_ms();
 	while (1)
 	{
@@ -67,9 +69,9 @@ void	do_my_routine(t_coder *coder)
 	request_and_grab_dongles(coder);
 	compile(coder);
 	drop_dongle(coder->right_dongle,
-				coder->simulation->data->dongle_cooldown);
+		coder->simulation->data->dongle_cooldown);
 	drop_dongle(coder->left_dongle,
-				coder->simulation->data->dongle_cooldown);
+		coder->simulation->data->dongle_cooldown);
 	print_status("is debugging", coder);
 	ft_usleep(coder->simulation->data->time_to_debug, coder->simulation);
 	print_status("is refactoring", coder);
