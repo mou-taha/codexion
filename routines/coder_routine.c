@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:02:26 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/08 20:47:05 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 07:13:17 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	*coder_routine(void *arg)
 		ft_usleep(coder->simulation->data->time_to_burnout, coder->simulation);
 		return (NULL);
 	}
+	coder = (t_coder *)arg;
 	if (coder->id % 2 == 0)
-		ft_usleep(coder->simulation->data->time_to_compile / 2,
-			coder->simulation);
+		usleep(100);
+	coder->last_compile_time = get_current_time_ms();
 	while (1)
 	{
 		if (check_stop(coder->simulation) || is_coder_finished(coder))

@@ -6,12 +6,11 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/05 09:10:11 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/09 12:01:30 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 07:13:26 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
-
 
 void	grab_dongle(t_coder *coder, t_dongle *dongle)
 {
@@ -31,7 +30,6 @@ void	grab_dongle(t_coder *coder, t_dongle *dongle)
 				pthread_mutex_lock(&dongle->key);
 				continue ;
 			}
-			// printf("\ncoder %d grab dongle %d\n",coder->id,dongle->id);
 			dongle->in_use = 1;
 			pop_coder(&dongle->queue);
 			pthread_mutex_unlock(&dongle->key);
@@ -58,8 +56,8 @@ void	request_and_grab_dongles(t_coder *coder)
 		second_dongle = coder->right_dongle;
 	}
 	create_dongle_request(coder, first_dongle);
-	grab_dongle(coder, first_dongle);
 	create_dongle_request(coder, second_dongle);
+	grab_dongle(coder, first_dongle);
 	grab_dongle(coder, second_dongle);
 	print_status("has taken a dongle", coder);
 	print_status("has taken a dongle", coder);
