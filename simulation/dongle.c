@@ -6,11 +6,12 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/05 09:10:11 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/10 07:13:26 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/07 22:28:59 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
+
 
 void	grab_dongle(t_coder *coder, t_dongle *dongle)
 {
@@ -41,19 +42,18 @@ void	grab_dongle(t_coder *coder, t_dongle *dongle)
 
 void	request_and_grab_dongles(t_coder *coder)
 {
-	t_dongle	*d1;
-	t_dongle	*d2;
-	long long	now;
+	t_dongle	*first_dongle;
+	t_dongle	*second_dongle;
 
-	if (coder->id % 2 == 0)
-	{
-		d1 = coder->right_dongle;
-		d2 = coder->left_dongle;
-	}
-	else
+	if (coder->left_dongle->id < coder->right_dongle->id)
 	{
 		first_dongle = coder->left_dongle;
 		second_dongle = coder->right_dongle;
+	}
+	else
+	{
+		first_dongle = coder->right_dongle;
+		second_dongle = coder->left_dongle;
 	}
 	create_dongle_request(coder, first_dongle);
 	create_dongle_request(coder, second_dongle);
