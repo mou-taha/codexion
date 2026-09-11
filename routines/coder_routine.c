@@ -30,7 +30,9 @@ void	*coder_routine(void *arg)
 	coder = (t_coder *)arg;
 	if (coder->id % 2 == 0)
 		usleep(100);
+	pthread_mutex_lock(&(coder->key));
 	coder->last_compile_time = get_current_time_ms();
+	pthread_mutex_unlock(&(coder->key));
 	while (1)
 	{
 		if (check_stop(coder->simulation) || is_coder_finished(coder))
