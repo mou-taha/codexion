@@ -12,6 +12,7 @@
 
 #include "../codexion.h"
 
+void	grab_dongles(t_coder *coder);
 void	compile(t_coder *coder);
 void	do_my_routine(t_coder *coder);
 

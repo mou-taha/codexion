@@ -78,7 +78,7 @@ Possible messages include `has taken a dongle`, `is compiling`, `is debugging`, 
 
 ### Deadlock prevention and Coffman's conditions
 
-A coder requests both dongles in a consistent order based on its identifier: even-numbered coders request right then left, while odd-numbered coders request left then right. This breaks circular wait, one of Coffman's necessary deadlock conditions. Each dongle also has a single protected request queue, so access is granted by the scheduler instead of being taken opportunistically.
+A coder requests both dongles in a consistent order based on the smallest ID first: the simulation implements a concept called Resource Hierarchy. Instead of thinking in terms of "left" and "right", every dongle is assigned a unique ID. The coders follow one strict rule: Always grab the dongle with the lowest ID first.. This breaks circular wait, one of Coffman's necessary deadlock conditions. Each dongle also has a single protected request queue, so access is granted by the scheduler instead of being taken opportunistically.
 
 ### Starvation prevention
 
@@ -134,7 +134,7 @@ Together, the mutexes and condition variables ensure that a coder can only remov
 
 ### Use of AI
 
-AI assistance was used for documentation support: organizing this README, explaining the project architecture and synchronization strategy in clear English, and checking that the compilation and execution instructions reflect the repository's Makefile and command-line interface. The implementation files remain the project's C source code; this README documents the existing design and behavior.
+AI assistance was used for documentation support: organizing this README, explaining the project architecture and synchronization strategy in clear English.
 
 ## Project structure
 

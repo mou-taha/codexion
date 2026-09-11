@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:37:16 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/10 07:13:03 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 23:39:22 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ void	*monitor_routine(void *arg)
 	return (NULL);
 }
 
-/*
-check if a coder is going to burnout based
-on his last compile and time to burnout,
-but the coder mustn't be in compiling and 
-must not finished yet their required compiles
-*/
 int	check_burnout(t_coder *coder)
 {
 	long long	elapsed;

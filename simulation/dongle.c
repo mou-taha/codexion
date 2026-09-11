@@ -6,29 +6,30 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/05 09:10:11 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/07 22:28:59 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 23:44:16 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
+void	wait_dongle(t_dongle *dongle, t_simulation *simulation);
 
 void	grab_dongle(t_coder *coder, t_dongle *dongle)
 {
-	long long	wait_time;
-
 	pthread_mutex_lock(&dongle->key);
 	while (1)
 	{
+		if (check_stop(coder->simulation))
+		{
+			pthread_mutex_unlock(&dongle->key);
+			return ;
+		}
 		if (dongle->in_use == 0 && dongle->queue.size != 0
 			&& dongle->queue.nodes[0].coder->id == coder->id)
 		{
 			if (get_current_time_ms() < dongle->next_availability)
 			{
-				wait_time = dongle->next_availability - get_current_time_ms();
-				pthread_mutex_unlock(&dongle->key);
-				ft_usleep(wait_time, coder->simulation);
-				pthread_mutex_lock(&dongle->key);
+				wait_dongle(dongle, coder->simulation);
 				continue ;
 			}
 			dongle->in_use = 1;
@@ -70,4 +71,14 @@ void	drop_dongle(t_dongle *dongle, long long dongle_cooldown)
 	dongle->next_availability = get_current_time_ms() + dongle_cooldown;
 	pthread_cond_broadcast(&(dongle->signal));
 	pthread_mutex_unlock(&dongle->key);
+}
+
+void	wait_dongle(t_dongle *dongle, t_simulation *simulation)
+{
+	long long	wait_time;
+
+	wait_time = dongle->next_availability - get_current_time_ms();
+	pthread_mutex_unlock(&dongle->key);
+	ft_usleep(wait_time, simulation);
+	pthread_mutex_lock(&dongle->key);
 }
