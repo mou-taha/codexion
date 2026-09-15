@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:08:23 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 23:23:38 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/15 11:11:27 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 int	create_coders(t_coder *coders, int nb_coders, long long start_time);
 
+/**
+ * @brief Starts the simulation.
+ * 
+ * @param data The simulation data.
+ * @param simulation The simulation structure.
+ * @param coders The array of coders.
+ * @return 1 if the simulation starts successfully, 0 otherwise.
+ */
 int	start_simulation(t_data *data, t_simulation *simulation, t_coder *coders)
 {
 	pthread_t	monitor;
@@ -36,6 +44,14 @@ int	start_simulation(t_data *data, t_simulation *simulation, t_coder *coders)
 	return (1);
 }
 
+/**
+ * @brief Creates the coder threads.
+ * 
+ * @param coders The array of coders.
+ * @param nb_coders The number of coders.
+ * @param start_time The start time of the simulation.
+ * @return 1 if the coders are created successfully, 0 otherwise.
+ */
 int	create_coders(t_coder *coders, int nb_coders, long long start_time)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 07:02:26 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/10 07:13:17 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/15 10:55:19 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ void	grab_dongles(t_coder *coder);
 void	compile(t_coder *coder);
 void	do_my_routine(t_coder *coder);
 
+/**
+ * @brief The main routine for each coder thread.
+ * 
+ * This function represents the main logic for each coder thread, handling their actions and interactions within the simulation.
+ * 
+ * @param arg The argument passed to the thread (should be a pointer to a t_coder structure).
+ * @return NULL.
+ */
 void	*coder_routine(void *arg)
 {
 	t_coder	*coder;
@@ -42,6 +50,14 @@ void	*coder_routine(void *arg)
 	return (NULL);
 }
 
+/**
+ * @brief Checks if the simulation should stop.
+ * 
+ * this function checks if the simulation should stop by acquiring a lock on the stop_simulation_key mutex, reading the stop_simulation value, and then releasing the lock.
+ * 
+ * @param simulation Pointer to the simulation structure.
+ * @return 1 if the simulation should stop, 0 otherwise.
+ */
 int	check_stop(t_simulation *simulation)
 {
 	int	stop_value;
@@ -52,6 +68,13 @@ int	check_stop(t_simulation *simulation)
 	return (stop_value);
 }
 
+/**
+ * @brief coder compile logic.
+ * 
+ * This function handles the compilation process for a coder, updating their last compile time, incrementing the number of compiles, and simulating the time taken to compile.
+ * 
+ * @param coder Pointer to the coder structure.
+ */
 void	compile(t_coder *coder)
 {
 	pthread_mutex_lock(&(coder->key));
@@ -66,6 +89,13 @@ void	compile(t_coder *coder)
 	pthread_mutex_unlock(&(coder->key));
 }
 
+/**
+ * @brief Performs the main routine for the coder.
+ * 
+ * This function handles the main logic for each coder thread, including requesting and grabbing dongles, compiling code, and dropping dongles.
+ * 
+ * @param coder Pointer to the coder structure.
+ */
 void	do_my_routine(t_coder *coder)
 {
 	request_and_grab_dongles(coder);

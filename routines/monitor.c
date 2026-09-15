@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 12:37:16 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/10 23:39:22 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/15 10:58:53 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 int		check_burnout(t_coder *coder);
 void	kill_coder(t_coder *coder);
 
+/**
+ * @brief The monitoring routine for the simulation.
+ * 
+ * This function monitors the status of each coder thread and handles burnout conditions.
+ * 
+ * @param arg Pointer to the simulation structure.
+ * @return NULL.
+ */
 void	*monitor_routine(void *arg)
 {
 	t_simulation	*sim;
@@ -43,6 +51,14 @@ void	*monitor_routine(void *arg)
 	return (NULL);
 }
 
+/**
+ * @brief Checks if a coder has burned out.
+ * 
+ * This function checks if a coder has been compiling for too long and has not finished.
+ * 
+ * @param coder Pointer to the coder structure.
+ * @return 1 if the coder has burned out, 0 otherwise.
+ */
 int	check_burnout(t_coder *coder)
 {
 	long long	elapsed;
@@ -55,7 +71,14 @@ int	check_burnout(t_coder *coder)
 	return (elapsed >= coder->simulation->data->time_to_burnout
 		&& !is_coder_finished(coder) && !is_compiling);
 }
-
+/**
+ * @brief Checks if a coder has finished compiling.
+ * 
+ * This function checks if a coder has completed the required number of compilations.
+ * 
+ * @param coder Pointer to the coder structure.
+ * @return 1 if the coder has finished, 0 otherwise.
+ */
 int	is_coder_finished(t_coder *coder)
 {
 	int	coder_nb_compiles;
@@ -67,6 +90,13 @@ int	is_coder_finished(t_coder *coder)
 		>= coder->simulation->data->number_of_compiles_required);
 }
 
+/*
+ * @brief Kills a coder thread.
+ * 
+ * This function flag the simulation has stopped and prints a message indicating the coder has burned out.
+ * 
+ * @param coder Pointer to the coder structure.
+ */
 void	kill_coder(t_coder *coder)
 {
 	long long	interval;

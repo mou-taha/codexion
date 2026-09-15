@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 20:47:04 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/10 23:37:24 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/15 11:04:30 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 int			should_swap(char *scheduler, t_heap_node parent, t_heap_node child);
 
+/*
+ * @brief Initializes a heap.
+ * 
+ * This function initializes a heap with the specified capacity and scheduler. allocates memory for the heap nodes and sets the initial size to zero.
+ * 
+ * @param capacity The maximum number of elements the heap can hold.
+ * @param scheduler The scheduling algorithm to use.
+ * @return The initialized heap.
+ */
 t_heap	init_heap(int capacity, char *scheduler)
 {
 	t_heap	heap;
@@ -24,7 +33,15 @@ t_heap	init_heap(int capacity, char *scheduler)
 	heap.scheduler = scheduler;
 	return (heap);
 }
-
+/*
+ * @brief Inserts a request into the heap.
+ * 
+ * This function inserts a request into the heap, maintaining the heap property based on the specified scheduling algorithm. If the heap is full, the insertion fails.
+ * 
+ * @param queue Pointer to the heap structure.
+ * @param request The request to be inserted.
+ * @return 1 if the insertion is successful, 0 if the heap is full.
+*/
 int	insert_to_heap(t_heap *queue, t_heap_node request)
 {
 	int	current;
@@ -46,6 +63,14 @@ int	insert_to_heap(t_heap *queue, t_heap_node request)
 	return (1);
 }
 
+/*
+ * @brief Gets the burnout time for a heap node.
+ * 
+ * This function calculates the burnout time for a given heap node based on its coder's last compile time and the simulation data.
+ * 
+ * @param node The heap node for which to calculate the burnout time.
+ * @return The calculated burnout time.
+ */
 long long	get_burnout_time(t_heap_node node)
 {
 	long long	burnout_time;
@@ -57,6 +82,16 @@ long long	get_burnout_time(t_heap_node node)
 	return (burnout_time);
 }
 
+/*
+ * @brief Determines if two heap nodes should be swapped.
+ * 
+ * This function checks if the parent and child nodes should be swapped based on the specified scheduling algorithm.
+ * 
+ * @param scheduler The scheduling algorithm to use.
+ * @param parent The parent heap node.
+ * @param child The child heap node.
+ * @return 1 if the nodes should be swapped, 0 otherwise.
+ */
 int	should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
 {
 	long long	parent_burnout_time;
@@ -82,6 +117,13 @@ int	should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
 	return (0);
 }
 
+/*
+ * @brief Removes the root node from the heap.
+ * 
+ * This function removes the root node from the heap, maintaining the heap property based on the specified scheduling algorithm.
+ * 
+ * @param queue Pointer to the heap structure.
+ */
 void	pop_coder(t_heap *queue)
 {
 	int	current;
