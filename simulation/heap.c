@@ -6,13 +6,13 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 20:47:04 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/10 07:14:45 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 23:37:24 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-int		should_swap(char *scheduler, t_heap_node parent, t_heap_node child);
+int			should_swap(char *scheduler, t_heap_node parent, t_heap_node child);
 
 t_heap	init_heap(int capacity, char *scheduler)
 {
@@ -46,6 +46,17 @@ int	insert_to_heap(t_heap *queue, t_heap_node request)
 	return (1);
 }
 
+long long	get_burnout_time(t_heap_node node)
+{
+	long long	burnout_time;
+
+	pthread_mutex_lock(&node.coder->key);
+	burnout_time = node.coder->last_compile_time
+		+ node.coder->simulation->data->time_to_burnout;
+	pthread_mutex_unlock(&node.coder->key);
+	return (burnout_time);
+}
+
 int	should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
 {
 	long long	parent_burnout_time;
@@ -59,14 +70,8 @@ int	should_swap(char *scheduler, t_heap_node parent, t_heap_node child)
 	}
 	else if (is_edf(scheduler))
 	{
-		pthread_mutex_lock(&parent.coder->key);
-		parent_burnout_time = parent.coder->last_compile_time
-			+ parent.coder->simulation->data->time_to_burnout;
-		pthread_mutex_unlock(&parent.coder->key);
-		pthread_mutex_lock(&child.coder->key);
-		child_burnout_time = child.coder->last_compile_time
-			+ child.coder->simulation->data->time_to_burnout;
-		pthread_mutex_unlock(&child.coder->key);
+		parent_burnout_time = get_burnout_time(parent);
+		child_burnout_time = get_burnout_time(child);
 		if (child_burnout_time < parent_burnout_time)
 			return (1);
 		else if (child_burnout_time == parent_burnout_time

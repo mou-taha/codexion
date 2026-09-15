@@ -14,7 +14,7 @@
 
 int		validate_args(t_data *data, char const **arg);
 void	parse_numbers_data(t_data *data, int *arg);
-int     validate_time_values(int *arg);
+int		validate_time_values(int *arg);
 
 t_data	*parse_data(char const **argv, int nb_args)
 {
@@ -58,7 +58,7 @@ int	validate_args(t_data *data, char const **arg)
 		return (1);
 	}
 	else
-		printf("\nInvalid arguments\n");
+		printf("Invalid arguments\n");
 	return (0);
 }
 
@@ -73,12 +73,12 @@ void	parse_numbers_data(t_data *data, int *arg)
 	data->dongle_cooldown = arg[6];
 }
 
-int     validate_time_values(int *arg)
+int	validate_time_values(int *arg)
 {
-    if (arg[0] <= 0 || arg[1] <= 0 || arg[2] <= 0 || 
-        arg[3] <= 0 || arg[4] <= 0 || arg[5] <= 0 || arg[6] < 0)
-    {
-        return (0);
-    }
-    return (1);
+	if (arg[0] <= 0 || arg[1] <= 0 || arg[2] <= 0
+		|| arg[3] <= 0 || arg[4] <= 0 || arg[5] <= 0 || arg[6] < 0)
+	{
+		return (0);
+	}
+	return (1);
 }

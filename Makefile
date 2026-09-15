@@ -6,7 +6,7 @@
 #    By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/05 11:24:21 by tmousnia          #+#    #+#              #
-#    Updated: 2026/09/06 21:50:39 by tmousnia         ###   ########.fr        #
+#    Updated: 2026/09/10 23:36:53 by tmousnia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(NAME).c -o $(NAME) 
 
 clean:
-
 	rm -f $(OBJS)
 
 fclean: clean

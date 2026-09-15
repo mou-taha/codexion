@@ -6,7 +6,7 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 11:17:27 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/07 22:30:14 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 22:41:56 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,6 @@ void	ft_usleep(int milliseconds_to_sleep, t_simulation *simulation)
 		usleep(500);
 	}
 }
-
-// void	ft_usleep(int to_sleep, t_simulation *simulation)
-// {
-// 	long	before_loop;
-// 	long	current_num;
-
-// 	if (to_sleep == 0)
-// 		return ;
-// 	before_loop = get_current_time_ms();
-// 	current_num = before_loop;
-// 	while (current_num - before_loop < to_sleep)
-// 	{
-// 		if (check_stop(simulation))
-// 			break ;
-// 		if (to_sleep - (current_num - before_loop) > 100)
-// 			usleep(100 * 1000);
-// 		else
-// 			usleep(to_sleep - (current_num - before_loop));
-// 		current_num = get_current_time_ms();
-// 	}
-// }
 
 void	create_dongle_request(t_coder *coder, t_dongle *dongle)
 {

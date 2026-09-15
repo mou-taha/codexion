@@ -6,9 +6,11 @@
 /*   By: tmousnia <tmousnia@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 22:03:18 by tmousnia          #+#    #+#             */
-/*   Updated: 2026/09/06 22:03:34 by tmousnia         ###   ########.fr       */
+/*   Updated: 2026/09/10 23:50:40 by tmousnia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../codexion.h"
 
 int	ft_isdigit(int c)
 {
